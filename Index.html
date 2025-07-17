@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Authenticator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0d0d1a; /* Deeper, richer dark blue */
+            --container-bg: rgba(30, 30, 45, 0.75); /* Slightly more opaque, darker blue for glassmorphism */
+            --text-color: #e0e0e0;
+            --accent-color: #8a2be2; /* Vibrant blue-violet */
+            --accent-color-dark: #6a1aab; /* Darker blue-violet */
+            --error-color: #ff6b6b; /* Softer red for errors */
+            --success-color: #6bff91; /* Brighter green for success */
+            --border-gradient-1: #8a2be2; /* Blue-violet */
+            --border-gradient-2: #00bfff; /* Deep sky blue */
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif; /* Modern font */
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            overflow: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            /* Enhanced background for a deeper, more mystical feel */
+            background: radial-gradient(circle at center, #1a1a3a 0%, #0d0d1a 100%); 
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 450px; /* Slightly wider for more presence */
+            margin: auto;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 3rem; /* More generous padding */
+            background: var(--container-bg);
+            border-radius: 20px; /* Even softer, more modern corners */
+            backdrop-filter: blur(20px) saturate(180%); /* Stronger blur and saturation for glassmorphism */
+            -webkit-backdrop-filter: blur(20px) saturate(180%); /* Safari support */
+            box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.4); /* Deeper, more diffused shadow */
+            color: var(--text-color);
+            border: 1px solid rgba(255, 255, 255, 0.15); /* Subtle border for glass effect */
+            animation: fadeIn 1s ease-out; /* Fade in animation */
+            position: relative; /* For gradient border */
+        }
+
+        /* Gradient border effect */
+        .container::before {
+            content: '';
+            position: absolute;
+            inset: -3px; /* Control the thickness of the border */
+            border-radius: 23px; /* Slightly larger than container border-radius */
+            padding: 3px;
+            background: linear-gradient(45deg, var(--border-gradient-1), var(--border-gradient-2), var(--border-gradient-1));
+            background-size: 200% 200%; /* For smoother gradient animation */
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: rotateGradient 6s linear infinite; /* Slower, more elegant rotation */
+            z-index: -1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-70%); }
+            to { opacity: 1; transform: translateY(-50%); }
+        }
+
+        @keyframes rotateGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+
+        h2 {
+            text-align: center;
+            color: var(--accent-color);
+            margin-bottom: 2.5rem; /* More space */
+            font-weight: 700; /* Bolder title */
+            letter-spacing: 1.5px; /* More pronounced letter spacing */
+            text-shadow: 0 0 15px rgba(138, 43, 226, 0.6); /* Accent glow */
+        }
+
+        input, button {
+            width: 100%;
+            padding: 1rem; /* More padding for inputs/buttons */
+            margin: 0.8rem 0;
+            border-radius: 10px; /* Even softer corners */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+            outline: none;
+            font-size: 1.1rem; /* Slightly larger font */
+            transition: all 0.4s ease; /* Smooth transitions */
+        }
+
+        input {
+            background: rgba(35, 35, 50, 0.7); /* Slightly darker, more transparent */
+            color: var(--text-color);
+        }
+
+        input::placeholder {
+            color: rgba(224, 224, 224, 0.6); /* Lighter placeholder */
+        }
+
+        input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.4); /* Accent focus shadow */
+            background: rgba(45, 45, 60, 0.8);
+        }
+
+        button {
+            background: linear-gradient(45deg, var(--accent-color), var(--accent-color-dark)); /* Gradient button */
+            color: #f0f0f0; /* Lighter text for contrast */
+            font-weight: 700; /* Bolder text */
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.4); /* Stronger button shadow */
+            transition: all 0.4s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase; /* Uppercase for buttons */
+        }
+
+        button:hover {
+            transform: translateY(-5px); /* More pronounced lift on hover */
+            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.5);
+            background: linear-gradient(45deg, var(--accent-color-dark), var(--accent-color)); /* Invert gradient on hover */
+        }
+
+        button:active {
+            transform: translateY(0); /* Press effect */
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+        }
+
+        .location {
+            font-size: 0.9rem;
+            color: #c0c0c0; /* Softer grey */
+            text-align: center;
+            margin-top: 2rem;
+            text-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Notification Toast */
+        #toast-container {
+            position: fixed;
+            top: 30px; /* Slightly lower */
+            right: 30px; /* Slightly more right */
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px; /* More space between toasts */
+        }
+
+        .toast {
+            background: rgba(40, 40, 55, 0.98); /* More opaque, darker blue */
+            color: #fff;
+            padding: 16px 25px; /* More padding */
+            border-left: 6px solid var(--accent-color);
+            border-radius: 12px; /* Softer corners */
+            min-width: 280px; /* Wider toast */
+            box-shadow: 0 0 20px rgba(0,0,0,0.7); /* Stronger shadow */
+            animation: slideIn 0.6s ease-out, fadeOut 0.6s ease-in 2.8s forwards; /* Longer animations */
+            font-size: 1rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .toast.success { border-left-color: var(--success-color); }
+        .toast.error { border-left-color: var(--error-color); }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(120%); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        /* Copyright */
+        .copyright {
+            text-align: center;
+            color: #a0a0a0; /* Slightly lighter grey */
+            font-size: 0.8rem; /* Slightly larger font */
+            margin-top: 3rem;
+            letter-spacing: 0.8px;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+<div id="particles-js"></div>
+
+<div class="container">
+    <h2>Access Portal</h2>
+    <input type="email" id="email" placeholder="Email Address" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button onclick="login()">Login Securely</button>
+    <div class="location" id="user-location">Fetching location...</div>
+    <div class="copyright">© 2025 Quantum Systems. All rights reserved.</div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+<script>
+    // Initialize particles
+    particlesJS('particles-js', {
+        particles: {
+            number: { value: 80, density: { enable: true, value_area: 1200 } }, /* More particles, slightly more spread out */
+            color: { value: ['#8a2be2', '#00bfff', '#ffffff'] }, /* Multi-color particles: violet, sky blue, white */
+            shape: { type: 'circle' },
+            opacity: { value: 0.7, random: true, anim: { enable: true, speed: 0.8, opacity_min: 0.2, sync: false } }, /* More pronounced twinkling */
+            size: { value: 4, random: true, anim: { enable: true, speed: 1.2, size_min: 0.5, sync: false } }, /* Varied sizes, subtle pulse */
+            line_linked: { enable: false }, /* No connecting lines */
+            move: { enable: true, speed: 1, direction: "none", random: true, straight: false, out_mode: "out", bounce: false, attract: { enable: false, rotateX: 600, rotateY: 1200 } } /* Slower, random movement */
+        },
+        interactivity: {
+            detect_on: "canvas",
+            events: { onhover: { enable: false }, onclick: { enable: false }, resize: true }, /* No interactivity on hover/click */
+            modes: {
+                grab: { distance: 180, line_linked: { opacity: 1 } },
+                bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+                repulse: { distance: 200, duration: 0.4 },
+                push: { particles_nb: 4 },
+                remove: { particles_nb: 2 }
+            }
+        },
+        retina_detect: true
+    });
+
+    // Firebase config
+    const firebaseConfig = {
+        apiKey: "AIzaSyDLCCRVvKhyRkefYHLkRvWti91m9JBkJAI",
+        authDomain: "xtoolsauth.firebaseapp.com",
+        projectId: "xtoolsauth",
+        storageBucket: "xtoolsauth.appspot.com",
+        messagingSenderId: "92244588547",
+        appId: "1:92244588547:web:30a37b5a739f3e9d693219"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    // Notification
+    function showToast(message, type = 'success') {
+        const toast = document.createElement("div");
+        toast.className = `toast ${type}`;
+        toast.textContent = message;
+        document.getElementById("toast-container").appendChild(toast);
+        // Remove after animation completes (3s total for fadeOut)
+        setTimeout(() => {
+            toast.style.opacity = '0'; // Start fade out
+            setTimeout(() => toast.remove(), 600); // Remove after fade out
+        }, 2800); // Start fade out after 2.8s (0.6s fade out animation = 3.4s total)
+    }
+
+    // Login
+    function login() {
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        if (!email || !password) {
+            showToast("Please enter both email and password.", "error");
+            return;
+        }
+
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then(() => {
+                showToast("Login successful!", "success");
+                setTimeout(() => window.location.href = "main.html", 3000);
+            })
+            .catch(error => {
+                showToast(error.message, "error");
+            });
+    }
+
+    // Location fetch
+    fetch("https://ipapi.co/json")
+        .then(res => res.json())
+        .then(data => {
+            const userLocation = data.city && data.country_name ? `${data.city}, ${data.country_name}` : "Unknown";
+            document.getElementById("user-location").textContent = userLocation;
+        })
+        .catch(() => {
+            document.getElementById("user-location").textContent = "Location unavailable.";
+        });
+
+    // Disable right-click context menu
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        showToast('Right-click is disabled on this site to protect content.', 'error'); // Show error toast
+    });
+
+    // Disable text selection (optional)
+    document.addEventListener('selectstart', function(e) {
+        e.preventDefault();
+    });
+
+    // Disable certain keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        // Key codes: https://keycode.info/
+        // Ctrl+S (Save)
+        if (e.ctrlKey && e.key.toLowerCase() === 's') {
+            e.preventDefault();
+            showToast('Saving this page is disabled.', 'error');
+        }
+
+        // Ctrl+U (View Source)
+        else if (e.ctrlKey && e.key.toLowerCase() === 'u') {
+            e.preventDefault();
+            showToast('Viewing source is disabled.', 'error');
+        }
+
+        // Ctrl+C (Copy) - Be cautious with this as it can hinder legitimate copy for accessibility
+        // For a public site, reconsider disabling this unless absolutely necessary.
+        // For this example, I'll keep it as per your original request.
+        else if (e.ctrlKey && e.key.toLowerCase() === 'c') {
+            e.preventDefault();
+            showToast('Copying is disabled.', 'error');
+        }
+
+        // Ctrl+Shift+I (DevTools)
+        else if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') {
+            e.preventDefault();
+            showToast('Opening developer tools is disabled.', 'error');
+        }
+
+        // F12 (DevTools)
+        else if (e.key === 'F12') {
+            e.preventDefault();
+            showToast('Opening developer tools is disabled.', 'error');
+        }
+    });
+</script>
+
+</body>
+</html>

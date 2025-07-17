@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ruhan Game Hack Shop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0a0a;
+      --bg-medium: #121212;
+      --bg-light: #1f1f1f;
+      --primary-color: #00ccff; /* Neon Blue */
+      --secondary-color: #39ff14; /* Vibrant Green - NEW COLOR */
+      --text-light: #e0e0e0;
+      --text-medium: #bbb;
+      --text-dark: #888;
+      --border-color: #333;
+      --shadow-color: rgba(0, 0, 0, 0.6);
+      --neon-glow: 0 0 8px var(--primary-color), 0 0 20px var(--primary-color);
+      --green-glow: 0 0 8px var(--secondary-color), 0 0 20px rgba(57, 255, 20, 0.4); /* NEW GLOW */
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: var(--bg-light);
+      padding: 25px 15px;
+      text-align: left;
+      box-shadow: 0 4px 15px var(--shadow-color);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(0, 204, 255, 0.1), transparent 70%);
+      animation: headerPulse 15s infinite alternate ease-in-out;
+      opacity: 0.3;
+    }
+
+    header h1 {
+      margin: 0;
+      color: var(--primary-color);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.8rem;
+      letter-spacing: 3px;
+      text-shadow: var(--neon-glow);
+      position: relative;
+      z-index: 1;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      background: var(--bg-medium);
+      padding: 15px 0;
+      gap: 20px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 2px 10px var(--shadow-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .tab-button {
+      padding: 12px 25px;
+      cursor: pointer;
+      border-radius: 30px;
+      background: var(--bg-light);
+      color: var(--text-medium);
+      border: 2px solid var(--border-color);
+      font-size: 17px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .tab-button::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 200%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(0, 204, 255, 0.2), transparent);
+      transition: left 0.4s ease-in-out;
+    }
+
+    .tab-button:hover::before {
+      left: 0;
+    }
+
+    .tab-button:hover {
+      color: var(--primary-color);
+      border-color: var(--primary-color);
+      box-shadow: var(--neon-glow);
+      transform: translateY(-3px);
+    }
+
+    .tab-button.active {
+      background: var(--primary-color);
+      color: var(--bg-dark);
+      box-shadow: var(--neon-glow);
+      transform: scale(1.05);
+      border-color: var(--primary-color);
+    }
+
+    .tab-content {
+      display: none;
+      padding: 40px 5%;
+      animation: fadeIn 0.5s ease-out;
+      flex: 1;
+    }
+
+    .tab-content.active {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .game-card {
+      background: linear-gradient(145deg, var(--bg-medium), #181818);
+      border: 1px solid rgba(0, 204, 255, 0.2);
+      border-radius: 18px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .game-card::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--primary-color));
+      filter: blur(15px);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .game-card:hover::before {
+      opacity: 0.2;
+    }
+
+    .game-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7), var(--green-glow); /* Changed to green glow */
+      border-color: var(--secondary-color);
+    }
+
+    .game-card img {
+      height: 60px;
+      width: 60px;
+      border-radius: 15px;
+      object-fit: cover;
+      margin-bottom: 15px;
+      align-self: flex-start;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 10px rgba(0, 204, 255, 0.3);
+    }
+
+    .game-card-content h3 {
+      margin: 0 0 8px 0;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-shadow: 0 0 5px rgba(0, 204, 255, 0.5);
+    }
+
+    .game-card-content p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--text-medium);
+      line-height: 1.5;
+      opacity: 0.9;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      white-space: normal;
+      height: 42px;
+    }
+
+    .download-btn {
+      background: linear-gradient(90deg, var(--secondary-color), #2ed800); /* Green gradient - NEW COLOR */
+      border: none;
+      border-radius: 10px;
+      color: var(--bg-dark);
+      font-weight: 700;
+      padding: 12px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: var(--green-glow); /* Changed to green glow */
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 15px;
+    }
+
+    .download-btn:hover {
+      background: linear-gradient(90deg, #2ed800, #25a700); /* Darker green hover - NEW COLOR */
+      box-shadow: 0 0 20px var(--secondary-color), 0 0 30px rgba(57, 255, 20, 0.6); /* Changed to green glow */
+      transform: scale(1.05);
+    }
+
+    footer {
+      background: var(--bg-light);
+      text-align: center;
+      padding: 25px;
+      font-size: 0.9em;
+      color: var(--text-dark);
+      margin-top: auto;
+      border-top: 1px solid var(--border-color);
+      box-shadow: 0 -4px 10px var(--shadow-color);
+    }
+
+    footer div {
+      font-weight: bold;
+      color: var(--secondary-color); /* Changed to green */
+      margin-bottom: 8px;
+      font-size: 1.1em;
+      letter-spacing: 1px;
+    }
+
+    /* Request Form Styles */
+    .request-form-container {
+      width: 400px;
+      max-width: 90%;
+      margin: 50px auto;
+      background: linear-gradient(145deg, var(--bg-medium), #181818);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 204, 255, 0.2);
+      border: 1px solid var(--primary-color);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .request-form-container h2 {
+      text-align: center;
+      color: var(--primary-color);
+      text-shadow: var(--neon-glow);
+      margin-bottom: 20px;
+      font-size: 2rem;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .request-form-container label {
+      color: var(--text-light);
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .request-form-container input[type="text"],
+    .request-form-container select,
+    .request-form-container textarea {
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      background: #2c2c2c;
+      color: var(--text-light);
+      font-size: 14px;
+      width: calc(100% - 24px);
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .request-form-container input[type="text"]:focus,
+    .request-form-container select:focus,
+    .request-form-container textarea:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 10px rgba(0, 204, 255, 0.5);
+      outline: none;
+    }
+
+    .request-form-container textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .request-form-container .download-btn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 15px;
+      font-size: 1.1rem;
+      border-radius: 15px;
+    }
+
+    #statusMessage {
+      text-align: center;
+      font-weight: bold;
+      font-size: 15px;
+      margin-top: 10px;
+      padding: 8px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes headerPulse {
+      0% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.1); opacity: 0.5; }
+      100% { transform: scale(1); opacity: 0.3; }
+    }
+
+    /* --- Mobile Friendly Adjustments --- */
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.2rem;
+      }
+
+      .tabs {
+        flex-direction: column; /* Stack tabs vertically */
+        gap: 10px;
+        padding: 10px 0;
+      }
+
+      .tab-button {
+        font-size: 15px;
+        padding: 10px 20px;
+        width: 80%; /* Make buttons wider on small screens */
+        margin: 0 auto; /* Center buttons */
+      }
+
+      .tab-content {
+        padding: 30px 3%;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); /* Adjust grid for smaller screens */
+        gap: 20px;
+      }
+
+      .game-card {
+        padding: 15px;
+      }
+
+      .game-card img {
+        height: 50px;
+        width: 50px;
+        margin-bottom: 10px;
+      }
+
+      .game-card-content h3 {
+        font-size: 1.1rem;
+      }
+
+      .game-card-content p {
+        font-size: 13px;
+        -webkit-line-clamp: 3; /* Allow more lines if needed for description */
+        height: auto; /* Let height adjust to content */
+      }
+
+      .download-btn {
+        font-size: 14px;
+        padding: 10px 15px;
+      }
+
+      .request-form-container {
+        width: 95%; /* Make form fill more width */
+        padding: 20px;
+        margin: 30px auto;
+      }
+
+      .request-form-container h2 {
+        font-size: 1.8rem;
+      }
+
+      /* Specific adjustments for input fields in request form */
+      .request-form-container input[type="text"],
+      .request-form-container select,
+      .request-form-container textarea {
+        width: calc(100% - 20px); /* Adjust width to fit smaller padding */
+        padding: 10px;
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 1.8rem;
+        text-align: center; /* Center header title on very small screens */
+      }
+
+      .tabs {
+        gap: 8px;
+        padding: 8px 0;
+      }
+
+      .tab-button {
+        width: 90%;
+        font-size: 14px;
+        padding: 8px 15px;
+      }
+
+      .tab-content {
+        grid-template-columns: 1fr; /* Single column on very small screens */
+        padding: 20px 2%;
+      }
+
+      .game-card {
+        padding: 15px;
+      }
+
+      .game-card img {
+        height: 45px;
+        width: 45px;
+      }
+
+      .game-card-content h3 {
+        font-size: 1rem;
+      }
+
+      .game-card-content p {
+        font-size: 12px;
+      }
+
+      .download-btn {
+        font-size: 13px;
+        padding: 8px 12px;
+      }
+
+      .request-form-container {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>RUHAN SHOP</h1>
+  </header>
+
+<div class="tabs">
+  <button class="tab-button active" onclick="openTab(event, 'android')">Android Apps</button>
+  <button class="tab-button" onclick="openTab(event, 'games')">Android Games</button>
+  <button class="tab-button" onclick="openTab(event, 'request')">Request Game</button>
+</div>
+
+  <div id="android" class="tab-content active">
+    <div class="game-card">
+  <img src="https://i.ibb.co/3W6qWq1/manual-camera-dslr.webp" alt="Manual Camera DSLR Icon" />
+  <div class="game-card-content">
+    <h3>Manual Camera DSLR</h3>
+    <p>Manual Camera DSLR MOD APK 1.20 (Paid for free)</p>
+  </div>
+    <a href="https://hole.apkdone.io/s/wo9gb4e3442StrA/download" target="_blank" class="download-btn">Download</a>
+</div>
+
+<div class="game-card">
+  <img src="https://i.ibb.co/L5hY4B8/surge-vpn.webp" alt="Surge VPN Icon" />
+  <div class="game-card-content">
+    <h3>Surge VPN</h3>
+    <p>Surge VPN MOD APK 1.4.7 (Premium Unlocked)</p>
+  </div>
+    <a href="https://hole.apkdone.io/s/TD6T5ya7W3NbGdC/download" target="_blank" class="download-btn">Download</a>
+</div>
+
+<div class="game-card">
+  <img src="https://i.ibb.co/L8yN82S/virus-guard.webp" alt="VirusGuard - Antivirus Icon" />
+  <div class="game-card-content">
+    <h3>VirusGuard - Antivirus</h3>
+    <p>VirusGuard - Mobile Antivirus MOD APK 62 (Premium Unlocked)</p>
+  </div>
+    <a href="https://hole.apkdone.io/s/pLL2zzLweykr8o5/download" target="_blank" class="download-btn">Download</a>
+</div>
+
+<div class="game-card">
+  <img src="https://i.ibb.co/0Fq7x8S/bandlab.webp" alt="BandLab Icon" />
+  <div class="game-card-content">
+    <h3>BandLab</h3>
+    <p>BandLab MOD APK 11.0.0 (Pro Unlocked)</p>
+  </div>
+    <a href="https://hole.apkdone.io/s/LYnKLwmD8wJiP4t/download" target="_blank" class="download-btn">Download</a>
+</div>
+
+<div class="game-card">
+  <img src="https://i.ibb.co/jGGxW3k/mt-manager.png" alt="MT Manager Icon" />
+  <div class="game-card-content">
+    <h3>MT Manager</h3>
+    <p>MT Manager MOD APK 2.18.2 (Vip Unlocked)</p>
+  </div>
+    <a href="https://hole.apkdone.io/s/BiK2GteGoKKT5QH/download" target="_blank" class="download-btn">Download</a>
+</div>
+
+<div class="game-card">
+  <img src="https://i.ibb.co/r763b2f/deep-ai.webp" alt="Deep AI Icon" />
+  <div class="game-card-content">
+    <h3>Deep AI</h3>
+    <p>Deep AI MOD APK 2.4 (Pro Unlocked)</p>
+  </div>
+    <a href="https://hole.apkdone.io/s/r7Ym3mx3oS366x9/download" target="_blank" class="download-btn">Download</a>
+</div>
+    
+    </div>
+
+  <div id="games" class="tab-content">
+  
+    <div class="game-card">
+  <img src="https://i.ibb.co/XzY0zW0/ludo-life.webp" alt="Ludo Life Icon" />
+  <div class="game-card-content">
+    <h3>Ludo Life</h3>
+    <p>Ludo Life MOD APK 0.7.3 (Speed Hack)</p>
+  </div>
+    <a href="https://file.apkdone.io/s/TkKKnSZafJCQxtT/download" target="_blank" class="download-btn">Download</a>
+</div>
+
+<div class="game-card">
+  <img src="https://i.ibb.co/jGGxW3k/mt-manager.png" alt="App Icon" />
+  <div class="game-card-content">
+    <h3>Another Game</h3>
+    <p>Description for another game mod.</p>
+  </div>
+    <a href="d" target="_blank" class="download-btn">Download</a>
+</div>
+
+<div class="game-card">
+  <img src="https://i.ibb.co/r763b2f/deep-ai.webp" alt="App Icon" />
+  <div class="game-card-content">
+    <h3>Cool Game Title</h3>
+    <p>This is a short description of the cool game, highlighting its features.</p>
+  </div>
+    <a href="d" target="_blank" class="download-btn">Download</a>
+</div>
+
+<div class="game-card">
+  <img src="https://i.ibb.co/L8yN82S/virus-guard.webp" alt="App Icon" />
+  <div class="game-card-content">
+    <h3>Epic Adventure</h3>
+    <p>Embark on an epic adventure with unlimited resources.</p>
+  </div>
+    <a href="d" target="_blank" class="download-btn">Download</a>
+</div>
+
+<div class="game-card">
+  <img src="https://i.ibb.co/0Fq7x8S/bandlab.webp" alt="App Icon" />
+  <div class="game-card-content">
+    <h3>Fantasy RPG</h3>
+    <p>A role-playing game with enhanced stats and unique items.</p>
+  </div>
+    <a href="d" target="_blank" class="download-btn">Download</a>
+</div>
+
+<div class="game-card">
+  <img src="https://i.ibb.co/L5hY4B8/surge-vpn.webp" alt="App Icon" />
+  <div class="game-card-content">
+    <h3>Racing Pro</h3>
+    <p>Get the fastest cars and unlock all tracks instantly.</p>
+  </div>
+    <a href="d" target="_blank" class="download-btn">Download</a>
+</div>
+
+  </div>
+
+  <div id="request" class="tab-content">
+    <div class="request-form-container">
+      <h2>🎮 Request a Game</h2>
+      <form onsubmit="sendRequest(event)">
+        <label for="gameName">Game Name:</label>
+        <input type="text" id="gameName" placeholder="e.g. PUBG Mobile Lite" required>
+
+        <label for="platform">Platform:</label>
+        <select id="platform" required>
+          <option value="">Select Platform</option>
+          <option>Android</option>
+          <option>iOS</option>
+          <option>PC Emulator</option>
+          <option>Other</option>
+        </select>
+
+        <label for="category">Game Category:</label>
+        <select id="category" required>
+          <option value="">Select Category</option>
+          <option>Shooter</option>
+          <option>Arcade</option>
+          <option>Adventure</option>
+          <option>Racing</option>
+          <option>Simulation</option>
+          <option>Strategy</option>
+          <option>Puzzle</option>
+          <option>Sports</option>
+          <option>Other</option>
+        </select>
+
+        <label for="location">Your Location (Optional):</label>
+        <input type="text" id="location" placeholder="e.g. Bangladesh">
+
+        <label for="gameDetails">What Type Mod you want?</label>
+        <textarea id="gameDetails" placeholder="Explain what kind of mod or hack you need (e.g., unlimited money, god mode, unlocked levels)..." rows="3"></textarea>
+
+        <label for="contactInfo">Your Contact (Optional):</label>
+        <input type="text" id="contactInfo" placeholder="e.g. Discord ID: Ruhan#1234 or Email">
+
+        <button type="submit" class="download-btn">🚀 Send Request</button>
+        <p id="statusMessage"></p>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <div>Ruhan Game Hack Shop</div>
+    © 2025 All rights reserved
+  </footer>
+
+  <script>
+    async function sendRequest(event) {
+      event.preventDefault();
+
+      const gameName = document.getElementById('gameName').value.trim();
+      const platform = document.getElementById('platform').value.trim();
+      const category = document.getElementById('category').value.trim();
+      const location = document.getElementById('location').value.trim();
+      const gameDetails = document.getElementById('gameDetails').value.trim();
+      const contactInfo = document.getElementById('contactInfo').value.trim();
+      const statusMessage = document.getElementById('statusMessage');
+
+      if (!gameName || !platform || !category) {
+        statusMessage.textContent = 'Please fill all required fields.';
+        statusMessage.style.color = '#e74c3c';
+        return;
+      }
+
+      const webhookUrl = 'https://discord.com/api/webhooks/1375082248579186768/Jau2XcGB5Cz4Jdjg6ePwwl4Hnv_bNEn0HpcVZccXbnHCdXVIpckT2d9bCT_l4m0eRrTI'; // replace this with your actual webhook URL
+
+      const embed = {
+        title: '🎮 New Game Request',
+        color: 0x00ccff, // Neon blue color for Discord embed
+        fields: [
+          { name: 'Game Name', value: gameName, inline: true },
+          { name: 'Platform', value: platform, inline: true },
+          { name: 'Category', value: category, inline: true },
+          { name: 'Location', value: location || 'Not specified', inline: true },
+          { name: 'Details', value: gameDetails || 'No details provided', inline: false },
+          { name: 'Contact', value: contactInfo || 'No contact info', inline: false }
+        ],
+        timestamp: new Date().toISOString(),
+        footer: {
+          text: 'Ruhan Shop Request Service',
+          icon_url: 'https://cdn.discordapp.com/attachments/1345787343327465575/1382962514651906090/Flux_Dev_Design_a_striking_gaming_logo_featuring_the_acronym_G_3.jpg?ex=684d0fb5&is=684bbe35&hm=061ba435b3ad20339a17e8fba90754953f8d8b6f6c6448b36c42dbc768ceee92&' // example icon (optional)
+        }
+      };
+
+      try {
+        const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ embeds: [embed] })
+        });
+
+        if (response.ok) {
+          statusMessage.textContent = '✅ Request sent successfully!';
+          statusMessage.style.color = '#2ecc71';
+
+          // Reset form
+          event.target.reset();
+        } else {
+          statusMessage.textContent = '❌ Failed to send request.';
+          statusMessage.style.color = '#e74c3c';
+        }
+      } catch (error) {
+        statusMessage.textContent = '❌ Error sending request.';
+        statusMessage.style.color = '#e74c3c';
+      }
+    }
+
+    function openTab(evt, tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      evt.currentTarget.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
